@@ -7,6 +7,7 @@ class Column
 {
     private string $title;
     private string $name;
+    private string $type;
     private bool $raw = false;
     private bool $sortable = false;
     private ?string $sortKey = null;
@@ -28,6 +29,14 @@ class Column
     public function getName(): string
     {
         return $this->name;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->$type;
     }
 
     /**
@@ -96,6 +105,13 @@ class Column
 
         return $this;
     }
+    
+    public function type(string $type): Column
+    {
+        $this->type = type;
+
+        return $this;
+    }
 
     public function raw(bool $raw = true): Column
     {
@@ -135,6 +151,7 @@ class Column
         return [
             "title" => $this->getTitle(),
             "name" => $this->getName(),
+            "type" => $this->getType(),
             "raw" => $this->isRaw(),
             "sortable" => $this->isSortable(),
             "searchable" => $this->isSearchable(),
