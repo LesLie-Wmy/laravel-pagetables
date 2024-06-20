@@ -36,7 +36,7 @@ class Column
      */
     public function getType(): string
     {
-        return $this->$type;
+        return $this->type;
     }
 
     /**
@@ -108,7 +108,7 @@ class Column
     
     public function type(string $type): Column
     {
-        $this->type = type;
+        $this->type = $type;
 
         return $this;
     }
