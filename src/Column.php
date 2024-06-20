@@ -7,7 +7,7 @@ class Column
 {
     private string $title;
     private string $name;
-    private string $type;
+    private string $type = 'string';
     private bool $raw = false;
     private bool $sortable = false;
     private ?string $sortKey = null;
