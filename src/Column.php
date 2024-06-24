@@ -14,6 +14,24 @@ class Column
     private ?string $searchKey = null;
     private bool $searchable = false;
     private string $sortDirection = "asc";
+    private ?string $itemField = null;
+    private ?array $items = null;
+
+    /**
+     * @return array
+     */
+    public function getItemField(): ?string
+    {
+        return $this->itemField;
+    }
+
+    /**
+     * @return array
+     */
+    public function getItems(): ?array
+    {
+        return $this->items;
+    }
 
     /**
      * @return string
@@ -146,6 +164,20 @@ class Column
         return $this;
     }
 
+    public function itemField($itemField): Column
+    {
+        $this->itemField = $itemField;
+
+        return $this;
+    }
+
+    public function items($items): Column
+    {
+        $this->items = $items;
+
+        return $this;
+    }
+
     public function toArray()
     {
         return [
@@ -158,6 +190,8 @@ class Column
             "sort_key" => $this->getSortKey(),
             "search_key" => $this->getSearchKey(),
             "sort_direction" => $this->getSortDirection(),
+            "items" => $this->getItems(),
+            "item_field" => $this->getItemField()
         ];
     }
 }
