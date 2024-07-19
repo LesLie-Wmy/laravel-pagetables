@@ -57,7 +57,7 @@ class Pagetables
 
     public function make($withColumns = false): \Illuminate\Support\Collection
     {
-        $columns = collect($this->columns)->reject(fn ($column) => $column->isRaw());
+        $columns = collect($this->columns)->reject(fn ($column) => $column->isRaw())->reject(fn ($column) => $column->getItems());
         $columnNames = $columns->map(fn ($column) => $column->getName());
         $query = $this->query->where(function (Builder $q) use ($columns) {
             $firstColumn = collect($columns)->get(0);
