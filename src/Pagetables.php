@@ -14,6 +14,7 @@ class Pagetables
      * @var Builder|\Illuminate\Database\Query\Builder
      */
     private $query;
+    private $where;
     private $currentPage;
     private $search;
     private $sort;
@@ -31,6 +32,7 @@ class Pagetables
     public function __construct(Builder $query)
     {
         $this->query = $query;
+        $this->where = json_decode(request()->get('where'),true) ;
         $this->search = request()->get('search');
         $this->sort = request()->get('sort');
         $this->currentPage = request()->get('page');
@@ -59,6 +61,9 @@ class Pagetables
     {
         $columns = collect($this->columns)->reject(fn ($column) => $column->isRaw())->reject(fn ($column) => $column->getItems());
         $columnNames = $columns->map(fn ($column) => $column->getName());
+        foreach ($this->where as $value) {
+            $this->query->where($value[0],$value[1],$value[2]);
+        }
         $query = $this->query->where(function (Builder $q) use ($columns) {
             $firstColumn = collect($columns)->get(0);
             $otherColumns = collect($columns)->except(0);
