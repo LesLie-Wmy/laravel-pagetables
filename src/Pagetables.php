@@ -61,8 +61,10 @@ class Pagetables
     {
         $columns = collect($this->columns)->reject(fn ($column) => $column->isRaw())->reject(fn ($column) => $column->getItems());
         $columnNames = $columns->map(fn ($column) => $column->getName());
-        foreach ($this->where as $value) {
-            $this->query->where($value[0],$value[1],$value[2]);
+        if($this->where){
+            foreach ($this->where as $value) {
+                $this->query->where($value[0],$value[1],$value[2]);
+            }
         }
         $query = $this->query->where(function (Builder $q) use ($columns) {
             $firstColumn = collect($columns)->get(0);
